@@ -1,0 +1,119 @@
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.46.20.192:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 12:03:36] "GET /?id=7641c060-1d7c-a832-85df-b914784e9e33 HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 12:03:36] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.46.20.192:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:05:50] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:05:51] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.46.20.192:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:07:37] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:07:37] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.46.20.192:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:08:22] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:08:22] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.46.20.192:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:09:02] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:09:02] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.46.20.192:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:09:44] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:09:45] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\G.Petrushenkov\AppData\Local\Programs\Python\Python310\lib\site-packages\flask\app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\G.Petrushenkov\AppData\Local\Programs\Python\Python310\lib\site-packages\flask\app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\G.Petrushenkov\AppData\Local\Programs\Python\Python310\lib\site-packages\flask\app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\G.Petrushenkov\AppData\Local\Programs\Python\Python310\lib\site-packages\flask\app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "c:\PythonProjects\ClearvVersions\recyc\Recyclables\app.py", line 167, in recyclables
+    user = get_user(sessionId)
+  File "c:\PythonProjects\ClearvVersions\recyc\Recyclables\app.py", line 142, in get_user
+    role_id = user_DB_info[0][3]
+IndexError: list index out of range
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:10:02] "[35m[1mGET /?id=1 HTTP/1.1[0m" 500 -
+ERROR:app:Exception on / [GET]
+Traceback (most recent call last):
+  File "C:\Users\G.Petrushenkov\AppData\Local\Programs\Python\Python310\lib\site-packages\flask\app.py", line 2525, in wsgi_app
+    response = self.full_dispatch_request()
+  File "C:\Users\G.Petrushenkov\AppData\Local\Programs\Python\Python310\lib\site-packages\flask\app.py", line 1822, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "C:\Users\G.Petrushenkov\AppData\Local\Programs\Python\Python310\lib\site-packages\flask\app.py", line 1820, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "C:\Users\G.Petrushenkov\AppData\Local\Programs\Python\Python310\lib\site-packages\flask\app.py", line 1796, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "c:\PythonProjects\ClearvVersions\recyc\Recyclables\app.py", line 167, in recyclables
+    user = get_user(sessionId)
+  File "c:\PythonProjects\ClearvVersions\recyc\Recyclables\app.py", line 142, in get_user
+    role_id = user_DB_info[0][3]
+IndexError: list index out of range
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:10:09] "[35m[1mGET /?id=1 HTTP/1.1[0m" 500 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:10:27] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:10:27] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:11:12] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:11:12] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.46.20.192:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:11:37] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:11:37] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.46.20.192:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:12:25] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:12:25] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.46.20.192:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:13:09] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:13:09] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:15:19] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:15:19] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:15:30] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:15:30] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:29:24] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:29:24] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:31:53] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:31:53] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.46.20.192:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:32:15] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:32:15] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:32:33] "[31m[1mPOST /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1[0m" 405 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:32:33] "[31m[1mPOST /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1[0m" 405 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:32:33] "[31m[1mPOST /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1[0m" 405 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:32:49] "GET /?id=285f783f-c34a-806d-22f7-bb2dc8a1538a HTTP/1.1" 200 -
+INFO:werkzeug:10.46.20.192 - - [20/Dec/2022 13:32:49] "[36mGET /static/wait.jpg HTTP/1.1[0m" 304 -

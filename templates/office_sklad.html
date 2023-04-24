@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ru">
+ <head>
+  <title>Datepicker</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+  <link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css" />
+  <!-- <link type="text/css" rel="stylesheet" href="{{url_for('static', filename='full_page.css')}}" /> -->
+  <script src="{{url_for('static', filename='ru.js')}}"></script>
+ </head>
+ <body>
+  <nav class="navbar navbar-expand navbar-light bg-light justify-content-center " style=" width: 100%">
+    <div class="navbar" id="navbarSupportedContent" style=" width: 100%">
+     <ul class="navbar-nav mr-auto">
+      <li class="nav-item dropdown">
+       <form class="form-inline my-2 my-lg-0" method="POST">
+         
+         <div class="input-group"><select class="custom-select mr-sm-2" id="inputGroupSelect04" name="status" style="min-width: 200pt;margin-left: 10px;">
+           <option selected value="{{status_filter}}">{{status_filter}}</option>
+           <option value="Все">Все</option>
+           <option value="Создана">Создана</option>
+           <option value="Подтверждена">Подтверждена</option>
+           <option value="Отклонена">Отклонена</option>
+           <option value="В работе">В работе</option>
+           <option value="Закрыта">Закрыта</option>
+          </select>
+         </div>
+      </li><input autocomplete="off" class="form-control mr-sm-2" type="search" placeholder="№ ОСП" name="search" style="min-width: 126px; " value="{{search_filter}}">
+      <div class="col-m-4 mr-sm-2" style=" min-width: 180px; ">
+       <div class="input-group date" id="datepicker"><input value="{{date_start_filter}}" autocomplete="off" type="text" pattern="\d\d-\d\d-\d\d\d\d" class="form-control" placeholder="c 00-00-0000" name="date_start"><span class="input-group-append"><span class="input-group-text bg-white"><i class="fa fa-calendar"></i></span></span></div>
+      </div>
+      <div class="col-m-4 mr-sm-2" style=" min-width: 180px; ">
+       <div class="input-group date" id="datepicker2"><input value="{{date_end_filter}}" autocomplete="off" type="text" pattern="\d\d-\d\d-\d\d\d\d" class="form-control" placeholder="по 00-00-0000" name="date_end"><span class="input-group-append"><span class="input-group-text bg-white"><i class="fa fa-calendar"></i></span></span></div>
+      </div><button class="col-m-4 mr-sm-2 btn btn-primary" type="submit">Поиск</button><button id="inwork" class="btn btn-primary "style=" min-width: 95px; " type="submit" disabled>В работу</button></fieldset>
+      </form>
+     </ul>
+    </div>
+    </div>
+   </nav>
+   
+  <script type="text/javascript">
+   $(function() {
+    $('#datepicker').datepicker({
+     weekStart: 1,
+     language: 'ru',
+     format: 'dd-mm-yyyy'
+    });
+   });
+  </script>
+  <script type="text/javascript">
+   $(function() {
+    $('#datepicker2').datepicker({
+     weekStart: 1,
+     language: 'ru',
+     format: 'dd-mm-yyyy'
+    });
+   });
+  </script>
+  <div style="margin-left: 0px;">
+  <div class="panel-body table-responsive my-custom-scrollbar" style="max-height:600px;">
+    
+   <table class='table table-sm .w-100'>
+    <tr>
+      <th scope="col" class="text-left"> </th>
+     <th disable scope="col" class="text-center">Номер</th>
+     <th scope="col" class="text-left">Дата создания</th>
+     <th scope="col" class="text-left">Инициатор</th>
+     <th scope="col" class="text-left">ОСП</th>
+     <th scope="col" class="text-left">Статус</th>
+     <th scope="col" class="text-left">Дата статуса</th>
+     <th scope="col" class="text-left">Вес</th>
+     <th scope="col" class="text-left">Комментарий</th>
+    </tr>
+    {% for request in data %}
+    <tr>
+      <td>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="ch{{ request['rUID'] }}" data-id="{{ request['rUID'] }}">
+            <label class="custom-control-label" for="ch{{ request['rUID'] }}"> </label>
+        </div>
+      </td>
+      <td class="text-center" style="width: 5%;display: table-cell;vertical-align: middle; word-wrap: break-word;">{{ request['id'] }}</td>
+      <td class="text-left" style="width: 10%;display: table-cell;vertical-align: middle; word-wrap: break-word;">{{ request['date'] }}</td>
+      <td class="text-left" style="width: 15%;display: table-cell;vertical-align: middle; word-wrap: break-word;">{{ request['creator'] }}</td>
+      <td class="text-left" style="width: 15%;display: table-cell;vertical-align: middle; word-wrap: break-word;">{{ request['ops_num'] }}</td>
+      <td class="text-left" style="width: 10%;display: table-cell;vertical-align: middle; word-wrap: break-word;"> {% if request['status'] == "Подтверждена" %} <img src="{{url_for('static', filename='accepted.jpg')}}" width="30" height="30" /> {{ request['status'] }} {% elif request['status'] == "Создана" %} <img src="{{url_for('static', filename='wait.jpg')}}" width="30" height="30" /> {{ request['status'] }} {% elif request['status'] == "Отклонена" %} <img src="{{url_for('static', filename='rejected.jpg')}}" width="30" height="30" /> {{ request['status'] }} {% elif request['status'] == "Подтверждена с замечаниями" %} <img src="{{url_for('static', filename='partly_accepted.jpg')}}" width="30" height="30" /> {{ request['status'] }} {% else %} {{ request['status'] }} {% endif %} </td>
+      <td class="text-left" style="width: 10%;display: table-cell;vertical-align: middle; word-wrap: break-word;">{{ request['status_date'] }}</td>
+      <td class="text-left" style="width: 5%;display: table-cell;vertical-align: middle; word-wrap: break-word;"> {% if request['status'] == "Создана" %} {{ request['sum_col'] }} {% else%} {{ request['sum_edited_col'] }} {% endif %} </td>
+      <td class="text-left" style="width: 15%; display: table-cell; vertical-align: middle; word-wrap: break-word;">{{ request['comment'] }}</td>
+      <td class="text-left" style="width: 10%;display: table-cell; vertical-align: middle;"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{request['rUID']}}">Подробно</button></td>
+     </tr> {% endfor %}
+   </table> 
+  </div>
+  <style>
+    .invalid {
+      border: 2px solid red;
+      background-color: #ffdddd;
+    }
+    .required {
+      border: 2px solid orange;
+      /* background-color: #fdffa0; */
+    }
+  </style>
+   {% for request in data %} 
+   {% if request['status'] == "Создана" %}
+   <form method="POST"><fieldset>
+   <div class="modal fade" id="{{ request['rUID'] }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+      <ul class="list-group">
+       <li class="list-group-item active"><b>Заявка №{{ request['id'] }}</b> от {{ request['date'] }}
+        <button type="button" class="close" data-dismiss="modal" style="position: absolute;top: 4px;right: 12px;">&times;</button>
+       </li>
+       <li class="list-group-item"><b>Инициатор:</b> {{ request['creator'] }}</li> 
+       <li class="list-group-item"><b>ОСП:</b> {{ request['ops_num'] }}</li>
+       <li class="list-group-item"><b>Статус:</b> {% if request['status'] == "Подтверждена" %} <img src="{{url_for('static', filename='accepted.jpg')}}" width="30" height="30" /> {{ request['status'] }} {% elif request['status'] == "Создана" %} <img src="{{url_for('static', filename='wait.jpg')}}" width="30" height="30" /> {{ request['status'] }} {% elif request['status'] == "Отклонена" %} <img src="{{url_for('static', filename='rejected.jpg')}}" width="30" height="30" /> {{ request['status'] }} {% elif request['status'] == "Подтверждена с замечаниями" %} <img src="{{url_for('static', filename='partly_accepted.jpg')}}" width="30" height="30" /> {{ request['status'] }} {% else %} {{ request['status'] }} {% endif %}({{ request['status_date'] }}) </td></li>
+      </ul>
+        <table class='table table-sm ' style="margin-bottom: 0px;width:100%" id="myTable">
+         <tr>
+          <th scope="col" class="text-center">Наименование</th>
+          <th scope="col" class="text-center">Количество</th>
+         </tr>
+         {% for position in request['content'] %} 
+         {% if position['col'] != 0 %}
+         <tr>
+          <td style="padding-left: 20px;" >{{ position['name'] }}</td>
+          <td><input autocomplete="off" class="form-control text-center" type="number" name="col{{ position['name'] }}№{{ request['rUID'] }}" value="{{ position['col'] }}" id="col" data-id="{{ request['rUID'] }}" readonly="true"></td>
+         </tr> 
+         {% else %}
+         <tr style="visibility: collapse ">
+          <td style="visibility: collapse ">{{ position['name'] }}</td>
+          <td style="visibility: collapse "><input autocomplete="off" class="form-control text-center" type="number" name="col{{ position['name'] }}№{{ request['rUID'] }}" value="{{ position['col'] }}"></td>
+         </tr>
+         {% endif %}
+         {% endfor %}
+        </table>
+        <table>
+         <tr style="visibility: collapse ">
+          <td style="visibility: collapse "><input class="form-control" type="text" name="search" value="{{search_filter}}"></td>
+          <td style="visibility: collapse "><input class="form-control" type="text" name="status" value="{{status_filter}}"></td>
+          <td style="visibility: collapse "><input  class="form-control" type="text" name="date_start" value="{{date_start_filter}}"></td>
+          <td style="visibility: collapse "><input  style="padding: 0;border: 0;margin: 0;width: 0;"class="form-control" type="text" name="date_end" value="{{date_end_filter}}"></td>
+          <td style="visibility: collapse "><input  style="padding: 0;border: 0;margin: 0;width: 0;"class="form-control" type="text" name="creation_date" value="{{ request['date'] }}"></td>
+          <td style="visibility: collapse "><input  style="padding: 0;border: 0;margin: 0;width: 0;"class="form-control" type="text" name="rUID" value="{{ request['rUID'] }}"></td>
+         </tr>
+        </table>
+        
+        <div class="modal-footer ">
+         <input autocomplete="off" class="form-control" type="text" name="comment" data-id="{{ request['rUID'] }}" placeholder="Комментарий" id="comment"style="width: 72%;" maxlength="1000">
+         <button disabled class="btn btn-primary" data-target="#reject№{{ request['rUID'] }}" data-toggle="modal" data-dismiss="modal" id="reject{{ request['rUID'] }}">Отклонить</button>
+         <button class="btn btn-primary " data-target="#confirm№{{ request['rUID'] }}" data-toggle="modal" data-dismiss="modal" id="submit{{ request['rUID'] }}" >Принять</button>
+            
+        </div>
+     </div>
+    </div>
+   </div>
+   <div class="modal fade" data-backdrop="static" id="reject№{{ request['rUID'] }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+     <div class="modal-content">
+      <div class="modal-header">
+       <h5 class="modal-title" id="exampleModalToggleLabel2">Вы уверенны, что хотите отклонить заявку?</h5>
+      </div>
+      <div class="modal-footer">
+       <button class="btn btn-primary" data-target="#{{ request['rUID'] }}" data-toggle="modal" data-dismiss="modal">Нет</button>
+       <button class="btn btn-primary" type="submit" name="submit" value="reject№{{ request['rUID'] }}">Да</button>
+      </div>
+     </div>
+    </div>
+    </div>
+  </div>
+    <div class="modal fade" data-backdrop="static" id="confirm№{{ request['rUID'] }}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+       <div class="modal-content">
+        <div class="modal-header">
+         <h5 class="modal-title" id="exampleModalToggleLabel2">Вы уверенны, что хотите подтвердить заявку?</h5>
+        </div>
+        <div class="modal-footer">
+         <button class="btn btn-primary" data-target="#{{ request['rUID'] }}" data-toggle="modal" data-dismiss="modal">Нет</button>
+         <button class="btn btn-primary" type="submit" name="submit" value="confirm№{{ request['rUID'] }}">Да</button></fieldset></form>
+        </div>
+       </div>
+      </div>
+      </div>
+    </div>
+    {% else %}
+    <div class="modal fade" id="{{ request['rUID'] }}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+       <div class="modal-content">
+        <ul class="list-group">
+          <li class="list-group-item active"><b>Заявка №{{ request['id'] }}</b> от {{ request['date'] }}
+          <button type="button" class="close" data-dismiss="modal" style="position: absolute;top: 4px;right: 12px;">&times;</button>
+         </li>
+         <li class="list-group-item"><b>Инициатор:</b> {{ request['creator'] }}</li>
+         <li class="list-group-item"><b>ОСП:</b> {{ request['ops_num'] }}</li>
+         <li class="list-group-item"><b>Статус:</b> {% if request['status'] == "Подтверждена" %} <img src="{{url_for('static', filename='accepted.jpg')}}" width="30" height="30" /> {{ request['status'] }} {% elif request['status'] == "Создана" %} <img src="{{url_for('static', filename='wait.jpg')}}" width="30" height="30" /> {{ request['status'] }} {% elif request['status'] == "Отклонена" %} <img src="{{url_for('static', filename='rejected.jpg')}}" width="30" height="30" /> {{ request['status'] }} {% elif request['status'] == "Подтверждена с замечаниями" %} <img src="{{url_for('static', filename='partly_accepted.jpg')}}" width="30" height="30" /> {{ request['status'] }} {% else %} {{ request['status'] }} {% endif %} ({{ request['status_date'] }})</td></li>
+         <li class="list-group-item"><b>Исполнитель:</b> {{ request['editor_FIO'] }} ({{ request['editor_OSP'] }})</li>
+         <li class="list-group-item"><b>Комментарий:</b> {{ request['comment'] }}</li>
+        </ul>
+          <table class='table table-sm ' style="margin-bottom: 0px;">
+           <tr>
+            <th scope="col" class="text-center">Наименование</th>
+            <th scope="col" class="text-center">Количество, <br><b>ОСП</b></th>
+            <th scope="col" class="text-center">Количество, <br><b>Пункт приёма</b></th>
+           </tr>
+           {% for position in request['content'] %} 
+           {% if position['col'] != 0 %}
+           <tr>
+            <td>{{ position['name'] }}</td>
+            <td><input disabled class="form-control text-center" type="number" name="col{{ position['name'] }}" value="{{ position['col'] }}" readonly="true"></td>
+            <td><input disabled class="form-control text-center" type="number" name="edited_col{{ position['name'] }}" value="{{ position['edited_col'] }}"></td>
+           </tr> 
+           {% else %}
+           <tr style="visibility: collapse ">
+            <td style="visibility: collapse ">{{ position['name'] }}</td>
+            <td style="visibility: collapse "><input disabled class="form-control" type="number" name="col{{ position['name'] }}" value="{{ position['col'] }}"></td>
+            <td style="visibility: collapse "><input disabled class="form-control" type="number" name="edited_col{{ position['name'] }}" value="{{ position['col'] }}"></td>
+           </tr>
+           {% endif %}
+           {% endfor %}
+           <tr>	
+            <td>Всего </td>	
+            <td><input disabled type="number" class="form-control text-center" value="{{ request['sum_col'] }}"></td>	
+            <td><input disabled type="number" class="form-control text-center" value="{{ request['sum_edited_col'] }}"></td>
+           </tr> 
+          </table>
+          <div class="modal-footer ">
+            <!-- <div class="card" style="width: 91%;"><div class="card-body sticky-left ">Комментарий сотрудника склада.</div></div>
+            <button class="btn btn-primary " data-target="#exampleModalToggle2" data-toggle="modal" data-dismiss="modal">ОК</button>
+           -->
+          </div>
+        
+       </div>
+      </div>
+     </div>
+    {% endif %}
+    {% endfor %}
+  
+  </div>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script>
+    var inputs = document.querySelectorAll("#edit_col");
+    var comments = document.querySelectorAll("#comment");
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].addEventListener("input", function() {
+        var request_id = this.getAttribute("data-id");
+        var col_inputs = document.querySelectorAll("#col[data-id='"+request_id+"']");
+        var edit_col_inputs = document.querySelectorAll("#edit_col[data-id='"+request_id+"']");
+        var button = document.getElementById("submit"+request_id);
+        var comment = document.querySelector("#comment[data-id='"+request_id+"']");
+        function checkInputse() {
+          for (let i = 0; i < col_inputs.length; i++) {
+            if (col_inputs[i].value !== edit_col_inputs[i].value) {
+              if (inputs[i].checkValidity()) {
+              // console.log('1');
+              button.disabled = comment.value.trim() === '';
+              }
+              comment.classList.add("required");
+              return;
+            }
+          }
+          button.disabled = false;
+          comment.classList.remove("required");
+        }
+        function checkInputsc() {
+          // console.log('2');
+          for (let i = 0; i < col_inputs.length; i++) {
+            if (col_inputs[i].value !== edit_col_inputs[i].value) {
+              button.disabled = comment.value.trim() === '';
+              comment.classList.add("required");
+              return;
+            }
+          }
+          button.disabled = false;
+          comment.classList.remove("required");
+        }
+        comments.forEach(input => input.addEventListener('input', checkInputsc));
+        edit_col_inputs.forEach(input => input.addEventListener('input', checkInputse));
+      });
+    }
+  </script>
+   <script>
+      var inputs = document.querySelectorAll("#comment");
+      for (var i = 0; i < inputs.length; i++) {
+      inputs[i].addEventListener("input", function() {
+          var request_id = this.getAttribute("data-id");
+          var buttonr = document.getElementById("reject"+request_id);
+          if (this.value.trim() === ''){
+            buttonr.disabled = true;
+            this.classList.add("required");
+            // console.log('3');
+          }else{
+            buttonr.disabled = false
+            this.classList.remove("required");
+            // console.log('4');
+          }
+          
+      });
+    }
+   </script>
+   <script>
+    var inputs = document.querySelectorAll("#edit_col");
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].addEventListener("input", function() {
+        if (!this.checkValidity()) {
+          this.classList.add("invalid");
+          var request_id = this.getAttribute("data-id");
+          var button = document.getElementById("submit"+request_id);
+          button.disabled = true;
+          // console.log('5');
+          
+        } else {
+          this.classList.remove("invalid");
+          var request_id = this.getAttribute("data-id");
+          var button = document.getElementById("submit"+request_id);
+          button.disabled = true;
+          
+        }
+      });
+    }
+  </script>
+  <script>
+    var inputs = document.querySelectorAll("#edit_col");
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].addEventListener("input", function() {
+        var request_id = this.getAttribute("data-id");
+        var inputs = document.querySelectorAll("#edit_col[data-id='"+request_id+"']");
+        var sum = [...inputs].reduce((acc, input) => acc + Number(input.value), 0)
+        var input = document.querySelector("#result[data-id='"+request_id+"']");
+        input.value = sum;
+        // console.log('7');
+        // console.log(sum);
+      });
+    }
+  </script>
+  <script type="text/javascript">
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    var button = document.querySelector('#inwork');
+
+    function toggleButton() {
+      let checkedCount = 0;
+      checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          checkedCount++;
+        }
+      });
+      button.disabled = !checkedCount;
+    }
+
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', toggleButton);
+    });
+
+    toggleButton();
+   </script>
+   <script type="text/javascript">
+    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    var button = document.querySelector('#inwork');
+
+    button.addEventListener('click', () => {
+      let checkedIds = [];
+      checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          checkedIds.push(checkbox.getAttribute('data-id'));
+        }
+      });
+
+      fetch('/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({checkedIds})
+      });
+    });
+   </script>
+ </body>
+</html>
